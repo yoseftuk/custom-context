@@ -1,0 +1,36 @@
+{
+  "name": "custom-context",
+  "version": "1.0.0",
+  "description": "adding additional functionality to a resgular context2d",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoseftuk/custom-context.git"
+  },
+  "keywords": [
+    "canvas",
+    "context",
+    "html5canvas",
+    "context2d"
+  ],
+  "author": "Yosef Tukachinsky",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yoseftuk/custom-context/issues"
+  },
+  "homepage": "https://github.com/yoseftuk/custom-context#readme",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^3.0.2",
+    "gulp-uglify-es": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "gulp-babel": "^8.0.0"
+  }
+}

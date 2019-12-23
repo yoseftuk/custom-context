@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/custom-context.js"></script>
+</head>
+<body>
+<canvas height="400" width="600" id="canvas"></canvas>
+<script>
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getCustomContext();
+    ctx.drawArrow(20, 20, 100, 100);
+    ctx.drawArrow(100, 100, 100, 300);
+    ctx.drawArrow(100, 300, 400, 200);
+    ctx.drawImageUrl('./img/sample-image.jpg', 100, 80, 150, 150, 30, 30, 100, 100);
+    ctx.drawCircleImageUrl('./img/sample-image.jpg', 10, 10, 100, 80, 60, 170, 170);
+    ctx.fillPolygon(300, 200, 50, 6);
+    ctx.strokePolygon(500, 300, 50, 8);
+    ctx.fillPolygon(50, 300, 60, 3);
+</script>
+</body>
+</html>
