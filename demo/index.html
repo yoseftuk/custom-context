@@ -26,9 +26,12 @@
     //         .draw();
     // });
 
-    const w = 1400, h = 800;
-    ctx.fillRect(0, 0, w, h);
-    ctx.drawImageContainUrl('./img/sample-image-2.jpg', 0, 0, w, h);
+    // const w = 1400, h = 800;
+    // ctx.fillRect(0, 0, w, h);
+    // ctx.drawImageContainUrl('./img/sample-image-2.jpg', 0, 0, w, h);
+
+    // ctx.drawFunction(x => Math.cos(x), {xTo: Math.PI * 4, yFrom: -1.5, yTo: 1.5, lineWidth: 10});
+    ctx.drawRadialFunction(x => Math.sin(.7 * x), {lineWidth: 10, xTo: 2.5, yTo: 1.5});
 
 </script>
 </body>
