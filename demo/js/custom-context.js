@@ -1,3 +1,4 @@
+
 HTMLCanvasElement.prototype.getCustomContext = function() {
 
     const ctx = this.getContext('2d');
@@ -110,17 +111,26 @@ HTMLCanvasElement.prototype.getCustomContext = function() {
                 cy + Math.sin(rotate + i / vertexesNum * Math.PI * 2) * radius );
         }
     };
+
+    // -- STROKE POLYGON
     ctx.strokePolygon = function(cx, cy, radius, vertexesNum, rotate = 0) {
         this.beginPath();
         this.linePolygon(cx, cy, radius, vertexesNum, rotate);
         this.stroke();
         this.closePath();
     };
+
+    // -- FILL POLYGON
     ctx.fillPolygon = function(cx, cy, radius, vertexesNum, rotate = 0) {
         this.beginPath();
         this.linePolygon(cx, cy, radius, vertexesNum, rotate);
         this.fill();
         this.closePath();
+    };
+
+    // -- FILTERS -- //
+    ctx.filterImage = function(img) {
+        return new ImageFilter(this, img);
     };
 
     return ctx;

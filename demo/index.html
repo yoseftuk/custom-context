@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="js/custom-context.js"></script>
+    <script src="../dist/custom-context.js"></script>
 </head>
 <body>
-<canvas height="400" width="600" id="canvas"></canvas>
+<canvas height="1080" width="1920" id="canvas"></canvas>
 <script>
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getCustomContext();
@@ -18,6 +18,13 @@
     ctx.fillPolygon(300, 200, 50, 6);
     ctx.strokePolygon(500, 300, 50, 8);
     ctx.fillPolygon(50, 300, 60, 3);
+
+    ctx.loadImage('./img/sample-image-2.jpg').then(img => {
+        ctx.filterImage(img)
+            .mat(1)
+            .grayscale(.5)
+            .draw();
+    });
 </script>
 </body>
 </html>
