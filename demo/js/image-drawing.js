@@ -17,9 +17,10 @@ function initImageDrawing(ctx) {
 
     // -- DRAW IMAGE URL -- //
     ctx.drawImageUrl = function (url, dx, dy, dw, dh, sx, sy, sw, sh) {
-        this.loadImage(url)
+        return this.loadImage(url)
             .then(img => {
                 if (sx) {
+                    console.log(8);
                     this.drawImage(img, dx, dy, dw, dh, sx, sy, sw, sh);
                 } else if (dw) {
                     this.drawImage(img, dx, dy, dw, dh)
@@ -118,5 +119,44 @@ function initImageDrawing(ctx) {
             this.drawImageContain(img, x, y, w, h);
         });
     };
+    // -- DRAW ROTATES IMAGE -- //
+    ctx.drawRotatesImage = function(img, deg, w = img.width, h = img.height, x = this.canvas.width/2, y = this.canvas.height/2){
+
+    };
+
+    // -- STRAIGHTEN -- //
+    ctx.straighten = function(img, deg) {
+        deg = deg/180*Math.PI;
+        const w = img.width,
+            h = img.height;
+        // TODO: FIND NEW WIDTH AND HEIGHT
+        // -- FIND NEW WIDTH AND HEIGHT -- //
+
+        const newW = w/2, newH = h/2;
+
+        // -- DRAW THE CROPPED IMAGE -- //
+        const mCanvas = document.createElement('canvas');
+        const mCtx = mCanvas.getCustomContext();
+        mCanvas.width = w;
+        mCanvas.height = h;
+        mCtx.save();
+        mCtx.beginPath();
+        mCtx.rect(w/2 - newW/2, h/2 - newH/2, newW, newH);
+        mCtx.clip();
+        mCtx.translate(w/2, h/2);
+        mCtx.rotate(deg);
+        mCtx.drawImage(img, 0, 0, w, h, -w/2, -h/2, w, h);
+        mCtx.closePath();
+        mCtx.restore();
+        return new Promise((resolve, reject) => {
+            mCtx.loadImage(mCanvas.toDataURL()).then(img => {
+                mCtx.clearRect(0, 0, mCanvas.width, mCanvas.height);
+                mCtx.drawImage(img, w/2 - newW/2, h/2 - newH/2, newW, newH, 0, 0, mCanvas.width, mCanvas.height);
+                resolve(mCanvas.toDataURL());
+            }).catch(err => reject(err));
+        });
+    }
+
+    // -- STRAIGHTEN URL -- //
 
 }

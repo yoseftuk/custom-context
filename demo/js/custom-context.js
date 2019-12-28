@@ -6,6 +6,7 @@ HTMLCanvasElement.prototype.getCustomContext = function () {
     initImageDrawing(ctx);
     initFunctionDrawing(ctx);
     initShapesDrawing(ctx);
+    initAnimations(ctx);
 
     // -- FILTERS -- //
     ctx.filterImage = function (img) {

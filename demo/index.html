@@ -31,8 +31,22 @@
     // ctx.drawImageContainUrl('./img/sample-image-2.jpg', 0, 0, w, h);
 
     // ctx.drawFunction(x => Math.cos(x), {xTo: Math.PI * 4, yFrom: -1.5, yTo: 1.5, lineWidth: 10});
-    ctx.drawRadialFunction(x => Math.sin(.7 * x), {lineWidth: 10, xTo: 2.5, yTo: 1.5});
-
+    // ctx.drawRadialFunction(x => Math.sin(.7 * x), {lineWidth: 10, xTo: 2.5, yTo: 1.5});
+    // ctx.loadImage('./img/sample-image-2.jpg').then(img => {
+    //     ctx.filterImage(img)
+    //         .invert()
+    //         .draw();
+    // });
+    var time = 0;
+    ctx.startAnimation(deltaTime => {
+        time += deltaTime;
+        ctx.fillText(time.toFixed(2), 20, 20);
+    });
+    // ctx.loadImage('./img/sample-image-2.jpg').then(img => {
+    //     ctx.straighten(img, 10).then(url => {
+    //         ctx.drawImageUrl(url, 0, 0, img.width, img.height, 0, 0, img.width, img.height);
+    //     });
+    // });
 </script>
 </body>
 </html>

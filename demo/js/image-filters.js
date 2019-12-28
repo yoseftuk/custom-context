@@ -42,12 +42,12 @@ function ImageFilter(ctx, img) {
         return this;
     };
 
-    // -- COLORIZE -- //
+    // -- MAT -- //
     this.mat = (percent = .75) => {
         percent /= 3;
         for (let i = 0; i < this.data.length; i += 4) {
             for (let j = 0; j < 3; j++) {
-                if (this.data[i+j] >= 128) {
+                if (this.data[i + j] >= 128) {
                     this.data[i + j] += percent * (255 - this.data[i + j]);
                 } else {
                     this.data[i + j] *= 1 - percent;
@@ -56,4 +56,24 @@ function ImageFilter(ctx, img) {
         }
         return this;
     };
+
+    // -- BRIGHTNESS -- //
+    this.brightness = (percent = 1.25) => {
+        for (let i = 0; i < this.data.length; i += 4) {
+            for (let j = 0; j < 3; j++) {
+                this.data[i + j] *= percent;
+            }
+        }
+        return this;
+    };
+
+    // -- INVERT -- //
+    this.invert = (percent = 1) => {
+        for (let i = 0; i < this.data.length; i += 4) {
+            for (let j = 0; j < 3; j++) {
+                this.data[i + j] += (255 - this.data[i + j] * 2) * percent;
+            }
+        }
+        return this;
+    }
 }
