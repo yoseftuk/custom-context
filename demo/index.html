@@ -6,8 +6,10 @@
     <script src="../dist/custom-context.js"></script>
 </head>
 <body>
-<input type="number" id="ohoho"/>
-<canvas height="1080" width="1920" id="canvas"></canvas>
+<div><label>R:<input id="r" name="r" type="number" value="100"/></label></div>
+<div><label>G:<input id="g" name="g" type="number" value="100"/></label></div>
+<div><label>B:<input id="b" name="b" type="number" value="100"/></label></div>
+<canvas height="400" width="600" id="canvas"></canvas>
 <script>
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getCustomContext();
@@ -49,11 +51,27 @@
     //     ctx.fill();
     //     ctx.closePath();
     // });
-    document.getElementById('ohoho').addEventListener('input', e => {
-            ctx.straightenUrl('./img/sample_image-3.jpg', e.target.value).then(url => {
-                ctx.drawImageUrl(url, 0, 0, 600, 400);
-            });
-    });
+    // document.getElementById('ohoho').addEventListener('input', e => {
+    //         ctx.straightenUrl('./img/sample_image-3.jpg', e.target.value).then(url => {
+    //             ctx.drawImageUrl(url, 0, 0, 600, 400);
+    //         });
+    // });
+    var r = document.querySelector('#r'),
+        g = document.querySelector('#g'),
+        b = document.querySelector('#b');
+    function setRGB() {
+        ctx.loadImage('./img/sample_image-3.jpg').then(img => {
+            ctx.filterImage(img)
+                .r(+r.value/100 || 1)
+                .g(+g.value/100 || 1)
+                .b(+b.value/100 || 1)
+                .draw();
+        });
+    }
+    r.addEventListener('input', setRGB);
+    g.addEventListener('input', setRGB);
+    b.addEventListener('input', setRGB);
+    setRGB();
 
 </script>
 </body>

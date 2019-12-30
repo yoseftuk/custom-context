@@ -75,5 +75,27 @@ function ImageFilter(ctx, img) {
             }
         }
         return this;
-    }
+    };
+
+    // -- R -- //
+    this.r = (percent = 1) => {
+        for (let i = 0; i < this.data.length; i += 4) {
+            this.data[i] *= percent;
+        }
+        return this;
+    };
+    // -- G -- //
+    this.g = (percent = 1) => {
+        for (let i = 1; i < this.data.length; i += 4) {
+            this.data[i] *= percent;
+        }
+        return this;
+    };
+    // -- B -- //
+    this.b = (percent = 1) => {
+        for (let i = 2; i < this.data.length; i += 4) {
+            this.data[i] *= percent;
+        }
+        return this;
+    };
 }
