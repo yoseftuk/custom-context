@@ -126,13 +126,33 @@ function initImageDrawing(ctx) {
 
     // -- STRAIGHTEN -- //
     ctx.straighten = function(img, deg) {
+
+        deg = (+deg + 360 ** 2) % 360;
         deg = deg/180*Math.PI;
         const w = img.width,
             h = img.height;
-        // TODO: FIND NEW WIDTH AND HEIGHT
         // -- FIND NEW WIDTH AND HEIGHT -- //
+        const top_left_vertex = mathTools.rotation( -w/2, -h/2, deg),
+            top_right_vertex = mathTools.rotation( w/2, -h/2, deg),
+            bottom_left_vertex = mathTools.rotation( -w/2, h/2, deg),
+            bottom_right_vertex = mathTools.rotation( w/2, h/2, deg);
+        console.log(top_left_vertex, top_right_vertex);
+        const {m, a} = mathTools.lineFunc(top_left_vertex.x, top_right_vertex.x, top_left_vertex.y, top_right_vertex.y);
+        console.log('line', m, a);
+        let slant = h/w;
+        if(deg % Math.PI < Math.PI/2) {
+            slant = -h/w;
+        } else {
+            slant = h/w;
+        }
+        const toX = a/(slant - m);
+        const toY = toX * slant;
+        const d = mathTools.distance(toX, toY) * 2;
+        console.log('disptance', toX, toY, d);
+        const rectDeg = Math.atan(h / w);
+        const newW = d * Math.cos(rectDeg), newH = d * Math.sin(rectDeg);
+        console.log('params', w, h, newW, newH);
 
-        const newW = w/2, newH = h/2;
 
         // -- DRAW THE CROPPED IMAGE -- //
         const mCanvas = document.createElement('canvas');
@@ -150,13 +170,14 @@ function initImageDrawing(ctx) {
         mCtx.restore();
         return new Promise((resolve, reject) => {
             mCtx.loadImage(mCanvas.toDataURL()).then(img => {
-                mCtx.clearRect(0, 0, mCanvas.width, mCanvas.height);
                 mCtx.drawImage(img, w/2 - newW/2, h/2 - newH/2, newW, newH, 0, 0, mCanvas.width, mCanvas.height);
                 resolve(mCanvas.toDataURL());
             }).catch(err => reject(err));
         });
-    }
+    };
 
     // -- STRAIGHTEN URL -- //
-
+    ctx.straightenUrl = function(url, deg) {
+        return this.loadImage(url).then(img => this.straighten(img, deg));
+    }
 }

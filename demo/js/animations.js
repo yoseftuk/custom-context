@@ -15,7 +15,7 @@ function initAnimations(ctx) {
         this.lastLoop = new Date().getTime();
         const deltaTime = this.lastLoop - lastLoop;
         this.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.animationCallback(deltaTime, ctx);
+        this.animationCallback(deltaTime, this);
         requestAnimationFrame(this.loop.bind(this));
     }
 }

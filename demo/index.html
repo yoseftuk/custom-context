@@ -6,6 +6,7 @@
     <script src="../dist/custom-context.js"></script>
 </head>
 <body>
+<input type="number" id="ohoho"/>
 <canvas height="1080" width="1920" id="canvas"></canvas>
 <script>
     var canvas = document.getElementById('canvas');
@@ -37,16 +38,23 @@
     //         .invert()
     //         .draw();
     // });
-    var time = 0;
-    ctx.startAnimation(deltaTime => {
-        time += deltaTime;
-        ctx.fillText(time.toFixed(2), 20, 20);
-    });
-    // ctx.loadImage('./img/sample-image-2.jpg').then(img => {
-    //     ctx.straighten(img, 10).then(url => {
-    //         ctx.drawImageUrl(url, 0, 0, img.width, img.height, 0, 0, img.width, img.height);
-    //     });
+    // var x = 50, y = 100, cx = 200, cy = 200;
+    // ctx.startAnimation(deltaTime => {
+    //     var rotation = deltaTime / 1000;
+    //     const params = mathTools.rotation(x, y, rotation);
+    //     x = params.x;
+    //     y = params.y;
+    //     ctx.beginPath();
+    //     ctx.arc(cx+x-5, cy+y-5, 10, 0, Math.PI*2);
+    //     ctx.fill();
+    //     ctx.closePath();
     // });
+    document.getElementById('ohoho').addEventListener('input', e => {
+            ctx.straightenUrl('./img/sample_image-3.jpg', e.target.value).then(url => {
+                ctx.drawImageUrl(url, 0, 0, 600, 400);
+            });
+    });
+
 </script>
 </body>
 </html>
