@@ -193,9 +193,7 @@ function initImageDrawing(ctx) {
         mCtx.drawImage(img, 0, 0, mCanvas.width, mCanvas.height);
         const mask = mCtx.getAllImageData().data;
         const imageData = this.getAllImageData();
-        console.log(mask);
         for (let i = 0; i < mask.length; i += 4) {
-            const avg = (255 * 3 - mask[i] + mask[i + 1] + mask[i + 2]) * mask[i + 3] / 255 / 3;
             imageData.data[i + 3] = mask[i + 3];
         }
         this.putImageData(imageData, 0, 0);
@@ -203,7 +201,7 @@ function initImageDrawing(ctx) {
     // -- IMAGE MASK URL -- //
     ctx.opacityMaskUrl = function (url) {
         this.loadImage(url).then(img => {
-            this.imageMask(img);
+            this.opacityMask(img);
         });
     }
 }

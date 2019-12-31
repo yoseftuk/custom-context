@@ -73,7 +73,7 @@
 
     ctx.drawImageUrl('./img/sample_image-3.jpg', 0, 0, canvas.width, canvas.height).then(() => {
         ctx.loadImageContain('./img/svgmask.png', canvas.width, canvas.height).then(img => {
-            ctx.imageMask(img);
+            ctx.opacityMask(img);
         });
     });
 
