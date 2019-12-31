@@ -98,4 +98,12 @@ function ImageFilter(ctx, img) {
         }
         return this;
     };
+    this.rgb = (r, g, b) => {
+        for (let i = 0; i < this.data.length; i += 4) {
+            this.data[i] *= r;
+            this.data[i+1] *= g;
+            this.data[i+2] *= b;
+        }
+        return this;
+    }
 }

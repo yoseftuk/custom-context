@@ -56,22 +56,26 @@
     //             ctx.drawImageUrl(url, 0, 0, 600, 400);
     //         });
     // });
-    var r = document.querySelector('#r'),
-        g = document.querySelector('#g'),
-        b = document.querySelector('#b');
-    function setRGB() {
-        ctx.loadImage('./img/sample_image-3.jpg').then(img => {
-            ctx.filterImage(img)
-                .r(+r.value/100 || 1)
-                .g(+g.value/100 || 1)
-                .b(+b.value/100 || 1)
-                .draw();
+    // var r = document.querySelector('#r'),
+    //     g = document.querySelector('#g'),
+    //     b = document.querySelector('#b');
+    // function setRGB() {
+    //     ctx.loadImage('./img/sample_image-3.jpg').then(img => {
+    //         ctx.filterImage(img)
+    //             .rgb(+r.value/100 || 1, +g.value/100 || 1, +b.value/100 || 1)
+    //             .draw();
+    //     });
+    // }
+    // r.addEventListener('input', setRGB);
+    // g.addEventListener('input', setRGB);
+    // b.addEventListener('input', setRGB);
+    // setRGB();
+
+    ctx.drawImageUrl('./img/sample_image-3.jpg', 0, 0, canvas.width, canvas.height).then(() => {
+        ctx.loadImageContain('./img/svgmask.png', canvas.width, canvas.height).then(img => {
+            ctx.imageMask(img);
         });
-    }
-    r.addEventListener('input', setRGB);
-    g.addEventListener('input', setRGB);
-    b.addEventListener('input', setRGB);
-    setRGB();
+    });
 
 </script>
 </body>

@@ -8,6 +8,12 @@ HTMLCanvasElement.prototype.getCustomContext = function () {
     initShapesDrawing(ctx);
     initAnimations(ctx);
 
+    ctx.getAllImageData = function() {
+        return this.getImageData(0, 0, this.canvas.width, this.canvas.height);
+    };
+    ctx.clearAllRect = function() {
+        return this.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    };
     // -- FILTERS -- //
     ctx.filterImage = function (img) {
         return new ImageFilter(this, img);
