@@ -7,6 +7,7 @@ HTMLCanvasElement.prototype.getCustomContext = function () {
     initFunctionDrawing(ctx);
     initShapesDrawing(ctx);
     initAnimations(ctx);
+    initHotSpot(ctx);
 
     ctx.getAllImageData = function() {
         return this.getImageData(0, 0, this.canvas.width, this.canvas.height);

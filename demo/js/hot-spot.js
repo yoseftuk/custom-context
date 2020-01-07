@@ -1,19 +1,43 @@
-function initHotSpot(ctx){
+function initHotSpot(ctx) {
 
-    ctx.addHotSpot = function(type, options) {
+    ctx.addHotSpot = function (type, options) {
         return new HotSpot(this, type, options);
     }
 }
 
 function HotSpot(ctx, type, options) {
 
+
+    this.ctx = ctx;
+    this.options = options;
+    this.listeners = {};
+    this.isIn = function (x, y) {
+        return false
+    };
+    const getXY = (event, ctx) => {
+        const X = event.offsetX * ctx.canvas.width / ctx.canvas.offsetWidth;
+        const Y = event.offsetY * ctx.canvas.height / ctx.canvas.offsetHeight;
+        return {X, Y}
+    };
     switch (type) {
 
+        case 'rect':
+            this.isIn = (X, Y) => {
+                const {x, y, width, height} = this.options;
+                return X > x && X < x + width && Y > y && Y < y + height;
+            };
+            break;
+        case 'circle':
+            this.isIn = (X, Y) => {
+                const {x, y, radius} = this.options;
+                return mathTools.distance(x, y, X, Y) < radius;
+            };
+            break;
         case 'polygon':
             this._listener = ctx.canvas.addEventListener('click', e => {
                 const x = e.x / ctx.canvas.offsetWidth * ctx.canvas.width;
                 const y = e.y / ctx.canvas.offsetHeight * ctx.canvas.height;
-                const vertexCount = options.vertexCount >=3 ? options.vertexCount : 3;
+                const vertexCount = options.vertexCount >= 3 ? options.vertexCount : 3;
                 const rotate = options.rotate !== undefined ? options.rotate : 0;
                 const cx = options.cx, cy = options.cy;
                 // -- FIND THE ANGLE FROM THE CENTER OF THE POINT TO THE EVENT POINT
@@ -31,4 +55,40 @@ function HotSpot(ctx, type, options) {
             break;
         default:
     }
+    this.ctx.canvas.addEventListener('click', e => {
+        const {X, Y} = getXY(e, this.ctx);
+        if(this.listeners.click && this.isIn(X, Y)) {
+            this.listeners.click(e);
+        }
+    });
+    this.ctx.canvas.addEventListener('mousemove', e => {
+        const {X, Y} = getXY(e, this.ctx);
+        if(this.isIn(X, Y)) {
+            this.ctx.canvas.style.cursor = 'pointer';
+            this.options.pointOnHover !== false && this.listeners.mouseenter && this.listeners.mouseenter(e);
+        } else {
+            this.ctx.canvas.style.cursor = '';
+            this.options.pointOnHover !== false && this.listeners.mouseleave && this.listeners.mouseleave(e);
+        }
+    });
+    this.remove = function () {
+        this.listeners = {};
+        return this;
+    };
+    this.on = function (type, callback) {
+
+        this.listeners[type] = callback;
+        switch (type) {
+            case 'click':
+
+        }
+        const listener = this.ctx.canvas.addEventListener(type, e => {
+            const {X, Y} = getXY(e, this.ctx);
+            if (this.isIn(X, Y)) {
+                callback(e);
+            }
+        });
+        return this;
+    }
+
 }
