@@ -6,9 +6,7 @@
     <script src="../dist/custom-context.js"></script>
 </head>
 <body>
-<div><label>R:<input id="r" name="r" type="number" value="100"/></label></div>
-<div><label>G:<input id="g" name="g" type="number" value="100"/></label></div>
-<div><label>B:<input id="b" name="b" type="number" value="100"/></label></div>
+
 <canvas height="400" width="600" id="canvas"></canvas>
 <script>
     var canvas = document.getElementById('canvas');
@@ -24,8 +22,6 @@
     //
     // ctx.loadImage('./img/sample-image-2.jpg').then(img => {
     //     ctx.filterImage(img)
-    //         .mat(1)
-    //         .grayscale(.5)
     //         .draw();
     // });
 
@@ -76,9 +72,12 @@
     //         ctx.opacityMask(img);
     //     });
     // });
-    ctx.drawImageUrl('./img/sample_image-3.jpg', 0, 0, canvas.width, canvas.height).then(() => {
-        ctx.flipHorizontal();
-    });
+    // ctx.drawImageUrl('./img/sample_image-3.jpg', 0, 0, canvas.width, canvas.height).then(() => {
+    //     ctx.circleLight(200, 200, 100, );
+    // });
+    ctx.strokeStar(200, 200, 50, 100, 5);
+    ctx.fillStar(50, 50, 12, 40, 5);
+    ctx.strokePolygon(150, 80, 44, 5);
 
 </script>
 </body>

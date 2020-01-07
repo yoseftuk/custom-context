@@ -50,8 +50,18 @@ HTMLCanvasElement.prototype.getCustomContext = function () {
         this.putImageData(imageData, 0, 0);
     };
     // -- CIRCLE LIGHT -- //
-    ctx.circleLight = function(radius = 0, brightness = 1.5, vagueness = .5) {
-
+    ctx.circleLight = function(cx, cy, radius, brightness = 1.5, vagueness = .5) {
+        const imageData = this.getAllImageData();
+        const data = imageData.data;
+        for (let i = cx - radius; i < cx + radius; i++) {
+            for(let j = cy - radius; j < cy + radius; j ++) {
+                for (let k=0; k<4; k++) {
+                    // console.log(i, j, k, this.canvas.width);
+                    data[i * 4 + j * this.canvas.width * 4 + k] *= 1 + (radius - mathTools.distance(i, j, cx, cy) >= 0 ? (1 - mathTools.distance(i, j, cx, cy) / radius) * brightness : 0);
+                }
+            }
+        }
+        this.putImageData(imageData, 0, 0);
     };
     // -- FILTERS -- //
     ctx.filterImage = function (img) {

@@ -139,9 +139,7 @@ function initImageDrawing(ctx) {
             top_right_vertex = mathTools.rotation(w / 2, -h / 2, deg),
             bottom_left_vertex = mathTools.rotation(-w / 2, h / 2, deg),
             bottom_right_vertex = mathTools.rotation(w / 2, h / 2, deg);
-        console.log(top_left_vertex, top_right_vertex);
         const {m, a} = mathTools.lineFunc(top_left_vertex.x, top_right_vertex.x, top_left_vertex.y, top_right_vertex.y);
-        console.log('line', m, a);
         let slant = h / w;
         if (deg % Math.PI < Math.PI / 2) {
             slant = -h / w;
@@ -151,10 +149,8 @@ function initImageDrawing(ctx) {
         const toX = a / (slant - m);
         const toY = toX * slant;
         const d = mathTools.distance(toX, toY) * 2;
-        console.log('disptance', toX, toY, d);
         const rectDeg = Math.atan(h / w);
         const newW = d * Math.cos(rectDeg), newH = d * Math.sin(rectDeg);
-        console.log('params', w, h, newW, newH);
 
 
         // -- DRAW THE CROPPED IMAGE -- //

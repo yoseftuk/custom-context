@@ -1,4 +1,4 @@
-function initShapesDrawing(ctx){
+function initShapesDrawing(ctx) {
     // -- DRAW ARROW -- //
     ctx.drawArrow = function (x1, y1, x2, y2, arrowEndHeight = 10, arrowEndWidth = 6) {
         this.beginPath();
@@ -69,4 +69,32 @@ function initShapesDrawing(ctx){
         this.fill();
         this.closePath();
     };
+
+    // -- LINE STAR
+    ctx.lineStar = function (cx, cy, r1, r2, vertexesNum, rotate = 0) {
+
+        this.moveTo(cx + Math.cos(rotate) * r2, cy + Math.sin(rotate) * r2);
+        for (let i = 1; i <= vertexesNum; i++) {
+            this.lineTo(cx + Math.cos(rotate + (i - .5) / vertexesNum * Math.PI * 2) * r1,
+                cy + Math.sin(rotate + (i - .5) / vertexesNum * Math.PI * 2) * r1);
+            this.lineTo(cx + Math.cos(rotate + i / vertexesNum * Math.PI * 2) * r2,
+                cy + Math.sin(rotate + i / vertexesNum * Math.PI * 2) * r2);
+        }
+    };
+
+    // -- STROKE STAR
+    ctx.strokeStar = function (cx, cy, r1, r2, vertexesNum, rotate = 0) {
+        this.beginPath();
+        this.lineStar(cx, cy, r1, r2, vertexesNum, rotate);
+        this.stroke();
+        this.closePath();
+    };
+
+    //-- FILL STAR
+    ctx.fillStar = function (cx, cy, r1, r2, vertexesNum, rotate = 0) {
+        this.beginPath();
+        this.lineStar(cx, cy, r1, r2, vertexesNum, rotate);
+        this.fill();
+        this.closePath();
+    }
 }
