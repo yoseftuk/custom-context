@@ -64,6 +64,14 @@ HTMLCanvasElement.prototype.getCustomContext = function () {
         }
         this.putImageData(imageData, 0, 0);
     };
+    // -- FILL RECT ROTATED -- //
+    ctx.fillRectRotated = function(x, y, width, height, rotate) {
+        ctx.beginPath();
+        ctx.translate(x + width / 2, y + height / 2);
+        ctx.rotate(rotate);
+        ctx.fillRect(- width / 2, - height / 2, width, height);
+        ctx.closePath();
+    };
     // -- FILTERS -- //
     ctx.filterImage = function (img) {
         return new ImageFilter(this, img);
