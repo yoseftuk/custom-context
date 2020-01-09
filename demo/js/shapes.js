@@ -75,10 +75,12 @@ function initShapesDrawing(ctx) {
 
         this.moveTo(cx + Math.cos(rotate) * r2, cy + Math.sin(rotate) * r2);
         for (let i = 1; i <= vertexesNum; i++) {
-            this.lineTo(cx + Math.cos(rotate + (i - .5) / vertexesNum * Math.PI * 2) * r1,
-                cy + Math.sin(rotate + (i - .5) / vertexesNum * Math.PI * 2) * r1);
-            this.lineTo(cx + Math.cos(rotate + i / vertexesNum * Math.PI * 2) * r2,
-                cy + Math.sin(rotate + i / vertexesNum * Math.PI * 2) * r2);
+            let deg = rotate + (i - .5) / vertexesNum;
+            let xy = mathTools.degToXY(deg, r1);
+            this.lineTo(cx + xy.x, cy + xy.y);
+            deg = rotate + (i) / vertexesNum;
+            xy = mathTools.degToXY(deg, r2);
+            this.lineTo(cx + xy.x, cy + xy.y);
         }
     };
 

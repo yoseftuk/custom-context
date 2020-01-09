@@ -23,14 +23,28 @@ function HotSpot(ctx, type, options) {
 
         case 'rect':
             this.isIn = (X, Y) => {
-                const {x, y, width, height} = this.options;
-                return X > x && X < x + width && Y > y && Y < y + height;
+                const {x, y, width, height, rotate} = this.options;
+                const cx = (x + width / 2),
+                    cy = (y + height / 2) ;
+                const p = mathTools.rotation(X - cx, Y - cy, -(rotate || 0));
+                console.log(cx-X, cy-Y, cx, cy, p);
+                p.x  += cx;
+                p.y += cy;
+                console.log(X, Y, p, rotate);
+                return p.x > x && p.x < x + width && p.y > y && p.y < y + height;
             };
             break;
         case 'circle':
             this.isIn = (X, Y) => {
                 const {x, y, radius} = this.options;
                 return mathTools.distance(x, y, X, Y) < radius;
+            };
+            break;
+        case 'diamond':
+            this.isIn = (X, Y) => {
+                const {x, y, width, height, rotate} = this.options;
+                const p = mathTools.rotation(X, Y, -rotate);
+                return p.x > x && p.x < x + width && p.y > y && p.y < y + height;
             };
             break;
         case 'polygon':

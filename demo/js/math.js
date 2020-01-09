@@ -13,5 +13,11 @@ const mathTools = {
         const m = (y2 - y1) / (x2 - x1);
         const a = y2 - x2*m;
         return {m, a};
+    },
+    degToXY(deg, r) {
+        return {
+            x: Math.cos(deg) * r,
+            y: Math.sin(deg) * r
+        }
     }
 };
