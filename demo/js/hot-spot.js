@@ -27,10 +27,8 @@ function HotSpot(ctx, type, options) {
                 const cx = (x + width / 2),
                     cy = (y + height / 2) ;
                 const p = mathTools.rotation(X - cx, Y - cy, -(rotate || 0));
-                console.log(cx-X, cy-Y, cx, cy, p);
                 p.x  += cx;
                 p.y += cy;
-                console.log(X, Y, p, rotate);
                 return p.x > x && p.x < x + width && p.y > y && p.y < y + height;
             };
             break;
