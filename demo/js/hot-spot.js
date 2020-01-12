@@ -88,6 +88,12 @@ class RectHotSpot extends HotSpot {
         p.y += cy;
         return p.x > x && p.x < x + width && p.y > y && p.y < y + height;
     }
+
+    draw() {
+        const {x, y, width, height }= this.options;
+        this.ctx.fillRect(x, y,width, height);
+        return super.draw();
+    }
 }
 
 class CircleHotSpot extends HotSpot {
@@ -95,6 +101,14 @@ class CircleHotSpot extends HotSpot {
     isIn(X, Y) {
         const {cx, cy, radius} = this.options;
         return mathTools.distance(cx, cy, X, Y) < radius;
+    }
+    draw() {
+        const {cx, cy, radius }= this.options;
+        this.ctx.beginPath();
+        this.ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        this.ctx.fill();
+        this.ctx.closePath();
+        return super.draw();
     }
 }
 
@@ -120,6 +134,11 @@ class PolygonHotSpot extends HotSpot {
         // -- SEE WHETHER THE MEETING POINT IS BEFORE THE EVENT (=EVENT OUT) OR AFTER (=EVENT IN)
         return mathTools.distance(cx, cy, X, Y) < mathTools.distance(cx, cy, meetingX, meetingY);
     }
+    draw() {
+        const {cx, cy, radius, vertexCount, rotate}= this.options;
+        this.ctx.fillPolygon(cx, cy,radius, vertexCount, rotate);
+        return super.draw();
+    }
 }
 
 class StarHotSpot extends HotSpot {
@@ -127,13 +146,13 @@ class StarHotSpot extends HotSpot {
     isIn(X, Y) {
         const {cx, cy, r1, r2, vertexCount, rotate} = this.options;
         // -- FIND THE ANGLE
-        const theta = (Math.PI * 1.5 - (rotate || 0) - Math.atan2(X - cx, Y - cy)) % (Math.PI * 2);
+        const theta = (Math.PI * 2.5 - (rotate || 0) - Math.atan2(X - cx, Y - cy)) % (Math.PI * 2);
         // -- FIND THE EDGE WHERE A LINE FROM THE CENTER TO THE EVENT SHOULD MEET
-        const edgeIndex = Math.floor(theta * vertexCount * 2 / Math.PI / 2);
+        const edgeIndex = Math.floor(theta * vertexCount / Math.PI);
         // -- CALCULATE THE FUNCTION OF THE EDGE LINE
-        const degInterval = Math.PI * 2 / vertexCount / 2;
-        const rStart = edgeIndex % 2 === 0 ? r1 : r2;
-        const rEnd = edgeIndex % 2 === 0 ? r2 : r1;
+        const degInterval = Math.PI / vertexCount;
+        const rStart = edgeIndex % 2 === 0 ? r2 : r1;
+        const rEnd = edgeIndex % 2 === 0 ? r1 : r2;
         const edgeStart = mathTools.degToXY(degInterval * edgeIndex + (rotate || 0), rStart);
         const edgeEnd = mathTools.degToXY(degInterval * (edgeIndex + 1) + (rotate || 0), rEnd);
         const edge = mathTools.lineFunc(edgeStart.x + cx, edgeEnd.x + cx, edgeStart.y + cy, edgeEnd.y + cy);
@@ -145,5 +164,10 @@ class StarHotSpot extends HotSpot {
         const meetingY = m * meetingX + a;
         // -- SEE WHETHER THE MEETING POINT IS BEFORE THE EVENT (=EVENT OUT) OR AFTER (=EVENT IN)
         return mathTools.distance(cx, cy, X, Y) < mathTools.distance(cx, cy, meetingX, meetingY);
+    }
+    draw() {
+        const {cx, cy, r1, r2, vertexCount, rotate}= this.options;
+        this.ctx.fillStar(cx, cy, r1, r2, vertexCount, rotate);
+        return super.draw();
     }
 }
