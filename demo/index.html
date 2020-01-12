@@ -87,10 +87,37 @@
     // }
     // drawStar();
 
-    var hotspot = ctx.addHotSpot('star', options)
+    var rectOptions = {x: 20, y:20, width: 80, height: 120};
+    var hotspot = ctx.addHotSpot('rect', rectOptions)
         .on('click', function(e) {
             alert(1);
         }).debug();
+    ctx.addHotSpot('circle', {
+        cx: 320,
+        cy: 280,
+        radius: 100
+    })
+        .on('click', function(e) {
+            alert(1);
+        }).debug('blue');
+    ctx.addHotSpot('polygon', {
+        cx: 120,
+        cy: 200,
+        radius: 80,
+        vertexCount: 6
+    }).on('click', function(e) {
+            alert(1);
+        }).debug('yellow');
+    ctx.addHotSpot('star', {
+        cx: 420,
+        cy: 200,
+        r1: 80,
+        r2: 100,
+        vertexCount: 6
+    }).on('click', function(e) {
+        alert(1);
+    }).debug('green');
+
 
 </script>
 </body>
