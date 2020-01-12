@@ -60,6 +60,30 @@ function HotSpot(ctx, type, options) {
                 return mathTools.distance(cx, cy, X, Y) < mathTools.distance(cx, cy, meetingX, meetingY);
             };
             break;
+        case 'star':
+            this.isIn = (X, Y) => {
+                const {cx, cy, r1, r2, vertexCount, rotate} = this.options;
+                // -- FIND THE ANGLE
+                const theta = (Math.PI * 1.5 - (rotate || 0) - Math.atan2(X - cx, Y - cy)) % (Math.PI * 2);
+                // -- FIND THE EDGE WHERE A LINE FROM THE CENTER TO THE EVENT SHOULD MEET
+                const edgeIndex = Math.floor(theta  * vertexCount * 2 / Math.PI / 2);
+                // -- CALCULATE THE FUNCTION OF THE EDGE LINE
+                const degInterval = Math.PI * 2 / vertexCount / 2;
+                const rStart = edgeIndex % 2 === 0 ? r1 : r2;
+                const rEnd = edgeIndex % 2 === 0 ? r2 : r1;
+                const edgeStart = mathTools.degToXY(degInterval * edgeIndex + (rotate || 0), rStart);
+                const edgeEnd = mathTools.degToXY(degInterval * (edgeIndex + 1) + (rotate || 0), rEnd);
+                const edge = mathTools.lineFunc(edgeStart.x + cx, edgeEnd.x + cx, edgeStart.y + cy, edgeEnd.y + cy);
+
+                // -- CALCULATE THE FUNCTION OF THE LINE GOING FROM THE CENTER TO THE EVENT POINT
+                const {m, a} = mathTools.lineFunc(cx, X, cy , Y);
+                // -- CALCULATE THE MEETING POINT
+                const meetingX = (edge.a - a) / (m - edge.m);
+                const meetingY = m * meetingX + a;
+                // -- SEE WHETHER THE MEETING POINT IS BEFORE THE EVENT (=EVENT OUT) OR AFTER (=EVENT IN)
+                return mathTools.distance(cx, cy, X, Y) < mathTools.distance(cx, cy, meetingX, meetingY);
+            };
+            break;
         case 'custom':
             break;
         default:
@@ -98,6 +122,20 @@ function HotSpot(ctx, type, options) {
             }
         });
         return this;
+    }
+    this.debug = function(color = 'red') {
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.fillStyle = color;
+        for (let i=0; i<canvas.width; i++) {
+            for (let j=0; j<canvas.height; j++) {
+                if(this.isIn(i, j)) {
+                    this.ctx.fillRect(i, j, 1, 1);
+                }
+            }
+        }
+        this.ctx.closePath();
+        this.ctx.restore();
     }
 
 }

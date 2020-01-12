@@ -78,8 +78,8 @@
     // ctx.strokeStar(200, 200, 50, 100, 5);
     // ctx.fillStar(50, 50, 12, 40, 5);
     // ctx.strokePolygon(150, 80, 44, 5);
-    const options = {cx: 200, cy:200, radius: 180, vertexCount: 8, rotate: Math.PI * .7};
-    ctx.fillPolygon(options.cx, options.cy, options.radius, options.vertexCount, options.rotate);
+    const options = {cx: 200, cy:200, r1: 80, r2: 160, vertexCount: 5, rotate: Math.PI * .7};
+    ctx.fillStar(options.cx, options.cy, options.r1, options.r2, options.vertexCount, options.rotate);
     // function drawStar(deg = 0) {
     //     ctx.clearAllRect();
     //     ctx.strokeStar(200, 200, 40, 100, 6, deg);
@@ -87,10 +87,10 @@
     // }
     // drawStar();
 
-    ctx.addHotSpot('polygon', options)
+    var hotspot = ctx.addHotSpot('star', options)
         .on('click', function(e) {
             alert(1);
-        });
+        }).debug();
 
 </script>
 </body>
