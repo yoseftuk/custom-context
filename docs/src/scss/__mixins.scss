@@ -1,0 +1,109 @@
+@mixin input-placeholder {
+  &.placeholder { @content; }
+  &:-moz-placeholder { @content; }
+  &::-moz-placeholder { @content; }
+  &:-ms-input-placeholder { @content; }
+  &::-webkit-input-placeholder { @content; }
+}
+@mixin box-sizing($val) {
+  box-sizing: $val;
+  -moz-box-sizing: $val;
+  -webkit-box-sizing: $val;
+}
+@mixin box-shadow($val...) {
+  box-shadow: $val;
+  -moz-box-shadow: $val;
+  -o-box-shadow: $val;
+  -webkit-box-shadow: $val;
+}
+@mixin font($size, $weight:normal, $color: #000000, $family: 'Nunito') {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+  font-family: $family, sans-serif;
+}
+@mixin border-radius($val) {
+  border-radius: $val;
+  -moz-border-radius: $val;
+  -webkit-border-radius: $val;
+}
+@mixin transition($val) {
+  transition: $val;
+  -moz-transition: $val;
+  -o-transition: $val;
+  -webkit-transition: $val;
+}
+@mixin transition-delay($val) {
+  transition-delay: $val;
+  -moz-transition-delay: $val;
+  -o-transition-delay: $val;
+  -webkit-transition-delay: $val;
+}
+@mixin transform($val) {
+  transform: $val;
+  -moz-transform: $val;
+  -o-transform: $val;
+  -webkit-transform: $val;
+  -ms-transform: $val;
+}
+@mixin transform-origin($val) {
+  transform-origin: $val;
+  -moz-transform-origin: $val;
+  -o-transform-origin: $val;
+  -webkit-transform-origin: $val;
+  -ms-transform-origin: $val;
+}
+@mixin justify($var) {
+  justify-content: $var;
+  -webkit-justify-content: $var;
+}
+@mixin align-items($var) {
+  align-items: $var;
+  -webkit-align-items: $var;
+}
+@mixin flex-shrink($val) {
+  flex-shrink: 0;
+  -webkit-flex-shrink: 0;
+}
+@mixin flex-direction($var) {
+  flex-direction: $var;
+  -ms-flex-direction: $var;
+  -webkit-flex-direction: $var;
+}
+@mixin fit($val) {
+  object-fit: $val;
+  -o-object-fit: $val;
+}
+@mixin animation($val...) {
+  animation: $val;
+  -webkit-animation: $val;
+  -o-animation: $val;
+  -moz-animation: $val;
+}
+@mixin user-select($val) {
+  user-select: $val;
+  -moz-user-select: $val;
+  -webkit-user-select: $val;
+  -ms-user-select: $val;
+}
+@mixin scrollbar($width, $track-bg, $thumb-bg, $thumb-hover-bg, $radius: 0) {
+  &::-webkit-scrollbar {
+    width: $width;
+  }
+  &::-webkit-scrollbar-track {
+    background: $track-bg;
+    @include border-radius($radius);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-bg;
+    @include border-radius($radius);
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: $thumb-hover-bg;
+  }
+}
+@mixin mobile() {
+  @media all and (max-width: $mobile-breakpoint) {
+    @content;
+  }
+}

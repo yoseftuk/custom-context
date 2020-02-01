@@ -1,0 +1,44 @@
+%abs-center {
+  position: absolute;
+  top: 0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin: auto;
+}
+%pseudo {
+  content: '';
+  display: block;
+  position: absolute;
+}
+%input {
+  outline: none;
+  border: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+%flex-center {
+  display: flex;
+  @include justify(center);
+  @include align-items(center);
+}
+%match-parent {
+  position: absolute;
+  left: 0;
+  top:0;
+  width: 100%;
+  height: 100%;
+}
+%without-events {
+  pointer-events: none;
+  touch-action: none;
+  -ms-touch-action: none;
+  -webkit-touch-callout: none;
+}
+%with-events {
+  pointer-events: auto;
+  touch-action: auto;
+  -ms-touch-action: auto;
+  -webkit-touch-callout: default;
+}
