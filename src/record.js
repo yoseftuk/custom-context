@@ -15,7 +15,7 @@ function initRecord(ctx) {
                 console.error("record data empty");
             }
         };
-        const stream = this.canvas.captureStream(25);
+        const stream = this.canvas.captureStream(100);
         const options = {bitsPerSecond : 5000000};
         if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
             options.mimeType = 'video/webm; codecs=vp9';
@@ -27,6 +27,7 @@ function initRecord(ctx) {
         this.mediaRecorder = new MediaRecorder(stream, options);
         this.mediaRecorder.ondataavailable = handleDataAvailable;
         this.mediaRecorder.start(500);
+        return stream;
     };
     // -- END RECORDING. (RETURN DATA)
     ctx.stopRecord = function(record_type = ctx.RECORD_TYPE_DOWNLOAD) {

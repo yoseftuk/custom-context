@@ -42,3 +42,6 @@
   -ms-touch-action: auto;
   -webkit-touch-callout: default;
 }
+%no-shrink {
+  @include flex-shrink(0);
+}

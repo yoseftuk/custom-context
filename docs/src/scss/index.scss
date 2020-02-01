@@ -1,3 +1,14 @@
 @import "_variables";
 @import "_mixins";
 @import "_extands";
+
+@import "main_structure";
+
+html, body {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+header, footer, aside, main {
+  display: block;
+}

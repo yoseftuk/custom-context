@@ -13,15 +13,15 @@ gulp.task('concatjs', () => (
 ));
 gulp.task('docsjs', () => (
     gulp.src('dist/src/*.js')
-        .pipe(concat('custom-context.js'))
+        .pipe(concat('main.js'))
         .pipe(babel())
         .pipe(uglify())
-        .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest('docs/dist'))
 ));
 gulp.task('docssass', () => (
     gulp.src('docs/src/scss/index.scss')
         .pipe(sass())
-        .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest('docs/dist'))
 ));
 
 gulp.task('default', gulp.series([
