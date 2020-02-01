@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<canvas height="400" width="600" id="canvas"></canvas>
+<canvas height="640" width="920" id="canvas"></canvas>
 <script>
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getCustomContext();
@@ -87,38 +87,56 @@
     // }
     // drawStar();
 
-    var rectOptions = {x: 20, y:20, width: 80, height: 120};
-    ctx.addHotSpot('rect', rectOptions)
-        .on('click', function(e) {
-            alert('rect');
-        }).draw();
-    ctx.addHotSpot('circle', {
-        cx: 320,
-        cy: 280,
-        radius: 100
-    })
-        .on('click', function(e) {
-            alert('circle');
-        }).draw();
-    ctx.addHotSpot('polygon', {
-        cx: 120,
-        cy: 200,
-        radius: 80,
-        rotate: Math.PI * .7,
-        vertexCount: 6
-    }).on('click', function(e) {
-            alert('polygon');
-        }).draw();
-    ctx.addHotSpot('star', {
-        cx: 420,
-        cy: 200,
-        r1: 50,
-        r2: 100,
-        rotate: 0,
-        vertexCount: 7
-    }).on('click', function(e) {
-        alert('star');
-    }).draw();
+    // var rectOptions = {x: 20, y:20, width: 80, height: 120};
+    // ctx.addHotSpot('rect', rectOptions)
+    //     .on('click', function(e) {
+    //         alert('rect');
+    //     }).draw();
+    // ctx.addHotSpot('circle', {
+    //     cx: 320,
+    //     cy: 280,
+    //     radius: 100
+    // })
+    //     .on('click', function(e) {
+    //         alert('circle');
+    //     }).draw();
+    // ctx.addHotSpot('polygon', {
+    //     cx: 120,
+    //     cy: 200,
+    //     radius: 80,
+    //     rotate: Math.PI * .7,
+    //     vertexCount: 6
+    // }).on('click', function(e) {
+    //         alert('polygon');
+    //     }).draw();
+    // ctx.addHotSpot('star', {
+    //     cx: 420,
+    //     cy: 200,
+    //     r1: 50,
+    //     r2: 100,
+    //     rotate: 0,
+    //     vertexCount: 7
+    // }).on('click', function(e) {
+    //     alert('star');
+    // }).draw();
+    let timer = 0;
+    ctx.startRecord();
+    ctx.startAnimation(Δt => {
+        timer += Δt;
+        if(timer > 4020) {
+            ctx.cancelAnimation();
+            ctx.stopRecord();
+            return;
+        }
+        const θ = timer * Math.PI * 2 / 2000;
+        ctx.fillStyle = 'white';
+        ctx.fillAll();
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(canvas.width / 2 + Math.cos(θ) * 300, canvas.height / 2 + Math.sin(θ) * 300, 10, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.closePath();
+    });
 
 
 </script>

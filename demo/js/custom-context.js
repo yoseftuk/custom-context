@@ -8,12 +8,34 @@ HTMLCanvasElement.prototype.getCustomContext = function () {
     initShapesDrawing(ctx);
     initAnimations(ctx);
     initHotSpot(ctx);
+    initRecord(ctx);
 
+    // -- DOWNLOAD BLOB
+    ctx.downloadURL = function(url, filename) {
+        var a = document.createElement('a');
+        a.style = 'display: none';
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    };
+    // -- DOWNLOAD IMAGE
+    ctx.download = function(filename) {
+        const url = this.toDataURL();
+        this.downloadURL(url, filename);
+    };
     ctx.getAllImageData = function() {
         return this.getImageData(0, 0, this.canvas.width, this.canvas.height);
     };
     ctx.clearAllRect = function() {
-        return this.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        return this;
+    };
+    ctx.fillAll = function() {
+        this.beginPath();
+        this.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.closePath();
     };
     // -- FLIP VERTICAL -- //
     ctx.flipVertical = function() {
