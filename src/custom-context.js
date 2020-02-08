@@ -28,7 +28,7 @@ HTMLCanvasElement.prototype.getCustomContext = function () {
     ctx.getAllImageData = function() {
         return this.getImageData(0, 0, this.canvas.width, this.canvas.height);
     };
-    ctx.clearAllRect = function() {
+    ctx.clearAll = function() {
         this.clearRect(0, 0, this.canvas.width, this.canvas.height);
         return this;
     };

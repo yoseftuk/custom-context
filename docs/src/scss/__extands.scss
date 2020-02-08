@@ -45,3 +45,6 @@
 %no-shrink {
   @include flex-shrink(0);
 }
+%border-box {
+  @include box-sizing(border-box);
+}

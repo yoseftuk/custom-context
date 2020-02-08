@@ -119,23 +119,31 @@
     // }).on('click', function(e) {
     //     alert('star');
     // }).draw();
-    let timer = 0;
-    ctx.startRecord();
-    ctx.startAnimation(Δt => {
-        timer += Δt;
-        if(timer > 4020) {
-            ctx.cancelAnimation();
-            ctx.stopRecord();
-            return;
-        }
-        const θ = timer * Math.PI * 2 / 2000;
-        ctx.fillStyle = 'white';
-        ctx.fillAll();
-        ctx.fillStyle = 'black';
-        ctx.beginPath();
-        ctx.arc(canvas.width / 2 + Math.cos(θ) * 300, canvas.height / 2 + Math.sin(θ) * 300, 10, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.closePath();
+    // let timer = 0;
+    // ctx.startRecord();
+    // ctx.startAnimation(Δt => {
+    //     timer += Δt;
+    //     if(timer > 4020) {
+    //         ctx.cancelAnimation();
+    //         ctx.stopRecord();
+    //         return;
+    //     }
+    //     const θ = timer * Math.PI * 2 / 2000;
+    //     ctx.fillStyle = 'white';
+    //     ctx.fillAll();
+    //     ctx.fillStyle = 'black';
+    //     ctx.beginPath();
+    //     ctx.arc(canvas.width / 2 + Math.cos(θ) * 300, canvas.height / 2 + Math.sin(θ) * 300, 10, 0, Math.PI * 2);
+    //     ctx.fill();
+    //     ctx.closePath();
+    // });
+    ctx.drawFuriesSeries(3/2, n => 0, n => (n%2 === 0 ? 0 : 6/n/Math.PI), {
+        xFrom: 0,
+        xTo: Math.PI * 11,
+        yFrom: -2,
+        yTo: 5,
+        fill: true,
+        depth: 1000
     });
 
 

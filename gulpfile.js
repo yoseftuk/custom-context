@@ -12,7 +12,7 @@ gulp.task('concatjs', () => (
         .pipe(gulp.dest('dist'))
 ));
 gulp.task('docsjs', () => (
-    gulp.src('dist/src/*.js')
+    gulp.src('docs/src/js/*.js')
         .pipe(concat('main.js'))
         .pipe(babel())
         .pipe(uglify())

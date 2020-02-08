@@ -1,0 +1,44 @@
+.main-header {
+
+}
+.sec-header {
+  margin-top: 4rem;
+}
+.desc {
+
+  a {
+
+  }
+}
+.jscode {
+  background-color: $code-light;
+  color: $code-dark;
+  padding: 10px 44px 10px 14px;
+  position: relative;
+
+  .copy-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    @include border-radius(3px);
+    border: 1px solid $code-dark;
+    padding: 4px;
+    @include transition(all .3s ease);
+    svg {
+      height: 16px;
+      path {
+        fill: $code-dark;
+        @include transition(all .3s ease);
+      }
+    }
+    &:hover {
+      background-color: $code-dark;
+      svg {
+        path {
+          fill: $code-light;
+        }
+      }
+    }
+  }
+}
