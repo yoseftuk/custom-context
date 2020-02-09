@@ -137,14 +137,18 @@
     //     ctx.fill();
     //     ctx.closePath();
     // });
-    ctx.drawFuriesSeries(3/2, n => 0, n => (n%2 === 0 ? 0 : 6/n/Math.PI), {
-        xFrom: 0,
-        xTo: Math.PI * 11,
-        yFrom: -2,
-        yTo: 5,
-        fill: true,
-        depth: 1000
-    });
+    // ctx.drawFuriesSeries(3/2, n => 0, n => (n%2 === 0 ? 0 : 6/n/Math.PI), {
+    //     xFrom: 0,
+    //     xTo: Math.PI * 11,
+    //     yFrom: -2,
+    //     yTo: 5,
+    //     fill: true,
+    //     depth: 1000
+    // });
+    ctx.partialAnimation(1000, x => {
+        ctx.clearAll();
+        ctx.circle(10 + 600 * x, 100, 15);
+    }, ctx.ANIMATION_TYPE_LINEAR);
 
 
 </script>

@@ -37,6 +37,12 @@ HTMLCanvasElement.prototype.getCustomContext = function () {
         this.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.closePath();
     };
+    ctx.circle = function(x, y, r) {
+        this.beginPath();
+        this.arc(x, y, r, 0, Math.PI * 2);
+        this.fill();
+        this.closePath();
+    };
     // -- FLIP VERTICAL -- //
     ctx.flipVertical = function() {
         this.replacePixelsBy((row, col) => ({
