@@ -145,11 +145,22 @@
     //     fill: true,
     //     depth: 1000
     // });
-    ctx.partialAnimation(1000, x => {
-        ctx.clearAll();
-        ctx.circle(10 + 600 * x, 100, 15);
-    }, ctx.ANIMATION_TYPE_LINEAR);
-
+    // ctx.partialAnimation(1000, x => {
+    //     ctx.clearAll();
+    //     ctx.circle(10 + 600 * x, 100, 15);
+    // }, ctx.ANIMATION_TYPE_LINEAR);
+    // const x = [1, 2, 4, 7, 12, 16, 17, 20],
+    //     y = [5, 7, 6, 4, 8, 10, 9, 15];
+    // ctx.drawDataPolynomial(x, y, {xFrom: 0, xTo: 20, yFrom: 0, yTo: 30, fill: false});
+    // ctx.fillStyle = 'green';
+    // y.forEach((t, i) => ctx.circle(x[i]/20*canvas.width, canvas.height-t/30*canvas.height, 5));
+    var n=100, t= 1;
+    ctx.startAnimation((dt) => {
+        // t-=.1;
+        ctx.drawColors((x, y) => {
+            return [Math.log(x**2 || 1/2**5)- y ** 2 - 5 * x - y + 2 **Math.abs(x/5) , Math.log(y**2|| 1/2**5) -  x**2 + 2 ** Math.abs(y/5)]
+        },{xFrom: -n, xTo: n * 2, yFrom: -n, yTo:n});
+    });
 
 </script>
 </body>
